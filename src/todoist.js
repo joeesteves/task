@@ -35,15 +35,35 @@ export const createTask = async (content, due_string, priority = 4) => {
     }
   )
 }
-export const getProjectId = name => {
+
+const getProjectId = async name => {
+  return await getProjectIdByName(name) || createProject(name)
+}
+
+const getProjectIdByName = name => {
   return new Promise(resolve => {
     request(
       projectsEndPoint,
-      { headers: { Authorization: `Bearer ${process.env['TODOIST_TOKEN']}` } },
+      { headers, json: true },
       (error, response, body) => {
-        const project = JSON.parse(body).find(project => project.name == name)
+        const project = body.find(project => project.name == name)
         resolve((project && project.id) || undefined)
       }
     )
   })
 }
+
+const createProject = name =>
+  new Promise(resolve => {
+    request(
+      {
+        url: projectsEndPoint,
+        method: 'POST',
+        headers,
+        json: { name }
+      },
+      (error, response, body) => {
+        resolve(body.id)
+      }
+    )
+  })
