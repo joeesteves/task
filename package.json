@@ -1,0 +1,19 @@
+{
+  "name": "task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "todoist",
+    "cli",
+    "linux",
+    "sheel",
+    "create",
+    "tasks"
+  ],
+  "author": "José Esteves",
+  "license": "ISC"
+}
