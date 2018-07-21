@@ -11,12 +11,12 @@ const tasksEndPoint = `${config.api_base}/tasks`,
     'X-Request-Id': uuid()
   }
 
-export const createTask = async (content, due_string, priority = 4) => {
+export const createTask = async (content, due_string) => {
   const body = {
     content,
     due_string,
     due_lang: 'es',
-    priority,
+    // priority,
     project_id: await getProjectId(
       getCurrentFolderName(process.cwd(), process.env['HOME'])
     )
