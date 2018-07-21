@@ -4,12 +4,15 @@ import config from './config'
 import { getCurrentFolderName } from './helpers'
 
 const tasksEndPoint = `${config.api_base}/tasks`,
-  projectsEndPoint = `${config.api_base}/projects`,
-  headers = {
+  projectsEndPoint = `${config.api_base}/projects`
+
+const headers = () => {
+  return {
     Authorization: `Bearer ${process.env['TODOIST_TOKEN']}`,
     'Content-Type': 'application/json',
     'X-Request-Id': uuid()
   }
+}
 
 export const createTask = async (content, due_string) => {
   const body = {
@@ -26,7 +29,7 @@ export const createTask = async (content, due_string) => {
     {
       url: tasksEndPoint,
       method: 'POST',
-      headers,
+      headers: headers(),
       json: body
     },
     (error, response, body) => {
@@ -37,14 +40,14 @@ export const createTask = async (content, due_string) => {
 }
 
 const getProjectId = async name => {
-  return await getProjectIdByName(name) || createProject(name)
+  return (await getProjectIdByName(name)) || createProject(name)
 }
 
 const getProjectIdByName = name => {
   return new Promise(resolve => {
     request(
       projectsEndPoint,
-      { headers, json: true },
+      { headers: headers(), json: true },
       (error, response, body) => {
         const project = body.find(project => project.name == name)
         resolve((project && project.id) || undefined)
@@ -59,7 +62,7 @@ const createProject = name =>
       {
         url: projectsEndPoint,
         method: 'POST',
-        headers,
+        headers: headers(),
         json: { name }
       },
       (error, response, body) => {
