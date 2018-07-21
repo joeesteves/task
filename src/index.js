@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { createTask } from './todoist'
-const [, , ...args] = process.argv
+import { parseTextToTask } from './helpers'
 
-console.log(args[0])
-createTask(args.join(''), "Mañana a las 5pm")
+const [, , ...args] = process.argv,
+  strArg = args.join(' ')
+
+createTask(...parseTextToTask(strArg))
