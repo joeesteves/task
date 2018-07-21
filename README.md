@@ -1,1 +1,5 @@
-#Todoist Task Cli\n##$>task Realizar algo mañana
+# Todoist Task Cli
+
+```bash
+$>task Realizar algo mañana
+ ```
