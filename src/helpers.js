@@ -11,4 +11,7 @@ export const checkToken = () => {
   }
 }
 
+export const isEmpty = (ary) => ary.length == 0
+  
 const humanize = (name) => name[0].toUpperCase() + name.slice(1)
+
